@@ -1,10 +1,16 @@
 cmake_minimum_required(VERSION 2.6)
+project(SOIL)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
 
 include_directories(inc)
 
-ADD_LIBRARY( soil STATIC
-  src/image_helper.c
-  src/stb_image_aug.c
-  src/image_DXT.c
-  src/SOIL.c
-  )
+FILE(GLOB SOIL_c src/*.c)
+FILE(GLOB SOIL_h inc/SOIL/*.h)
+
+ADD_LIBRARY( soil STATIC ${SOIL_c} )
+
+install( TARGETS soil ARCHIVE DESTINATION "lib" )
+install( FILES ${SOIL_h} DESTINATION "include/SOIL" )
